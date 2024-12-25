@@ -1,0 +1,14 @@
+﻿yas/7.2.0@3rdconan2/all
+xsimd/12.1.0@3rdconan2/all
+nameof/0.10.4@3rdconan2/all
+rangev3/0.12.0@3rdconan2/all
+magic_enum/0.9.5@3rdconan2/all
+boost/1.84.0@3rdconan2/all
+geos/3.13.0@3rdconan2/{channel}
+opencv/4.8.1@3rdconan2/{channel}
+spdlog/1.12.0@3rdconan2/{channel}
+zxingcpp/2.2.1@3rdconan2/{channel}
+onetbb/2021.11.0@3rdconan2/{channel}
+openvino/2024.4.0@3rdconan2/{channel}
+libutils/0.3.2.4@lksense2/{channel}
+libimgproc/1.2.6@lksense2/{channel}

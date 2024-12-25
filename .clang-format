@@ -1,0 +1,23 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+Language: Cpp
+DerivePointerAlignment: false
+PointerAlignment: Left
+ColumnLimit: 160
+BreakBeforeBraces: Linux
+BraceWrapping:
+  BeforeLambdaBody: false
+AllowShortFunctionsOnASingleLine: true
+PackConstructorInitializers: Never
+BinPackArguments: false
+BinPackParameters: false
+AlignTrailingComments:
+  Kind: Never
+SpacesBeforeTrailingComments: 2
+AllowShortEnumsOnASingleLine: false
+AlignAfterOpenBracket: Align
+PenaltyBreakAssignment: 20
+PenaltyBreakBeforeFirstCallParameter: 20
+AllowShortLambdasOnASingleLine: Inline
+LambdaBodyIndentation: Signature
+AllowShortIfStatementsOnASingleLine: true

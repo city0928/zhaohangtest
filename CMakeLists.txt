@@ -16,5 +16,7 @@ project(OpencvFindContoursDemo VERSION LANGUAGES CXX)
 include(${CMAKE_SOURCE_DIR}/cmake/env.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/qtcomp.cmake)
 
+add_subdirectory(${CMAKE_SOURCE_DIR}/TestBatchDefectInfo)
+
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/install)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install)

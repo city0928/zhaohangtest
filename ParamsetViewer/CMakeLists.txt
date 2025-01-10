@@ -1,8 +1,9 @@
-﻿cmake_minimum_required(VERSION 3.16)
-project(SubDemo VERSION LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16)
+
+project(ParamsetViewer VERSION LANGUAGES CXX)
 
 set(TOOL_VERSION_NUMBER 0.1.0.1)
-set(TOOL_EXE_FILENAME "SubDemo")
+set(TOOL_EXE_FILENAME "ParamsetViewer")
 set(CMAKE_PROJECT_NAME ${TOOL_EXE_FILENAME})
 
 Set(Lib3rd)
@@ -36,11 +37,18 @@ list(JOIN REQUIRES_PY "" REQUIRES_PY)
 message(STATUS  ${PROJECT_NAME} ": REQUIRES_PY: \n" ${REQUIRES_PY})
 
 # LOCAL LIB
-#set(IMGPROC_DIR "D:/guanzhaohang/desktop/LibImgProc/Debug")
-#set(IMGPROC_INCLUDE_DIR ${IMGPROC_DIR}/include)
-#set(IMGPROC_LIB_DIR ${IMGPROC_DIR}/lib)
-#include_directories(${IMGPROC_INCLUDE_DIR})
-#find_library(LO_IMGPROC LibImgProcd REQUIRED PATHS ${IMGPROC_LIB_DIR})
+message("123 CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+set(IMGPROC_DIR "D:/guanzhaohang/desktop/InsPionier/install/LibParam/${CMAKE_BUILD_TYPE}")
+set(IMGPROC_INCLUDE_DIR ${IMGPROC_DIR}/include)
+set(IMGPROC_LIB_DIR ${IMGPROC_DIR}/lib)
+include_directories(${IMGPROC_INCLUDE_DIR})
+if (${CMAKE_BUILD_TYPE} STREQUAL "Release" )
+    find_library(LO_IMGPROC LibParam REQUIRED PATHS ${IMGPROC_LIB_DIR})
+    file(COPY ${IMGPROC_LIB_DIR}/LibParam.dll DESTINATION ${CMAKE_BINARY_DIR}/)
+else()
+    find_library(LO_IMGPROC LibParamd REQUIRED PATHS ${IMGPROC_LIB_DIR})
+    file(COPY ${IMGPROC_LIB_DIR}/LibParamd.dll DESTINATION ${CMAKE_BINARY_DIR}/)
+endif()
 
 list(APPEND LinkLibs ${LinkLibsQt} ${Lib3rd})
 message(STATUS ${PROJECT_NAME} ": LinkLibs: " ${LinkLibs})
@@ -53,6 +61,7 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     ${LinkLibs}
+    ${LO_IMGPROC}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

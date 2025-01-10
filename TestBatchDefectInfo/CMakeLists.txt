@@ -46,9 +46,47 @@ list(APPEND LinkLibs ${LinkLibsQt} ${Lib3rd})
 message(STATUS ${PROJECT_NAME} ": LinkLibs: " ${LinkLibs})
 
 include(${CMAKE_CURRENT_LIST_DIR}/project.cmake)
-add_executable(${PROJECT_NAME}
-    ${Rroject_SOURCE}
-)
+message(state "current BuildSharedLib:" ${BuildSharedLib})
+if(BuildSharedLib)
+    add_executable(${PROJECT_NAME}
+        ${CMAKE_CURRENT_LIST_DIR}/main.cpp
+        ${Project_SOURCE}
+    )
+    # 根据构建类型设置输出目录
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        ${BUNDLE_ID_OPTION}
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_BINARY_DIR}/
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/
+        MACOSX_BUNDLE TRUE
+        WIN32_EXECUTABLE FALSE
+    )
+
+    include(GNUInstallDirs)
+
+    install(TARGETS ${PROJECT_NAME}
+        BUNDLE DESTINATION .
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+
+    if(QT_VERSION_MAJOR EQUAL 6)
+        qt_finalize_executable(${PROJECT_NAME}/../)
+    endif()
+else()
+    add_compile_definitions(NEEDEXPOTR)
+    add_library(${PROJECT_NAME} SHARED
+        ${Project_SOURCE}
+    )
+
+    install(FILES ${ProJect_Head}
+        DESTINATION ${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/include/BatchDefectDemo
+    )
+    install(TARGETS ${PROJECT_NAME}
+        CONFIGURATIONS ${CMAKE_BUILD_TYPE}
+        RUNTIME DESTINATION ${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/lib
+        ARCHIVE DESTINATION ${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/lib
+    )
+endif()
 
 target_link_libraries(${PROJECT_NAME} 
     PRIVATE 
@@ -56,23 +94,3 @@ target_link_libraries(${PROJECT_NAME}
     ${LO_IMGPROC}
 )
 
-# 根据构建类型设置输出目录
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_BINARY_DIR}/
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE FALSE
-)
-
-include(GNUInstallDirs)
-
-install(TARGETS ${PROJECT_NAME}
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(${PROJECT_NAME}/../)
-endif()

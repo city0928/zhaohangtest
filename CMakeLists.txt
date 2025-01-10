@@ -1,5 +1,7 @@
 ﻿cmake_minimum_required(VERSION 3.16)
 
+option(BuildSharedLib OFF)
+
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /Ob2")
@@ -11,7 +13,7 @@ list(APPEND REQUIRE_FILES ${REQUIRE_FILE})
 include(${CMAKE_SOURCE_DIR}/cmake/conangen.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/conansup.cmake)
 
-project(OpencvFindContoursDemo VERSION LANGUAGES CXX)
+project(Demo VERSION LANGUAGES CXX)
 
 include(${CMAKE_SOURCE_DIR}/cmake/env.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/qtcomp.cmake)

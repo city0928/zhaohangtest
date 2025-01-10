@@ -12,5 +12,10 @@ int main(int argc, char *argv[])
     libParam.level = LinkSenseAIFI::LogLevel::debug;
     LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
 
+    BatchDefectInfo info;
+    info.makeVirtualData();
+    //info.fromJson();
+    //info.wait();
+
     return a.exec();
 }

@@ -5,6 +5,6 @@ magic_enum/0.9.5@3rdconan2/all
 opencv/4.8.1@3rdconan2/{channel}
 spdlog/1.12.0@3rdconan2/{channel}
 onetbb/2021.11.0@3rdconan2/{channel}
-libqxlsx/1.4.7@3rdconan2/{channel}
+lkfluentui/0.0.0.6.19@uimodules2/{channel}
 libutils/2.0.6@lksense2/{channel}
 libvisparam/2.3.4@lksense2/{channel}

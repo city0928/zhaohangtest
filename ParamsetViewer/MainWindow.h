@@ -33,6 +33,9 @@ public:
     void bindSignalAndSlots();
     void excel2json();
     void conver();
+    void clickUi(){
+        m_FileToUIButton->click();
+    }
 
 private:
     QWidget *m_CentralWidget{nullptr};

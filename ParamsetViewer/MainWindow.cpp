@@ -7,7 +7,9 @@
 #include "ParamSets.h"
 #include "DftAndModInit.h"
 #include <QFile>
-#include "qxlsx/xlsxdocument.h"
+//#include "qxlsx/xlsxdocument.h"
+
+using Logur = LinkSenseAIFI::Logur;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +20,12 @@ MainWindow::MainWindow(QWidget *parent)
     bindSignalAndSlots();
     // excel2json();
     // conver();
+    LinkSenseAIFI::DcsParam::ParamSetMetal metalParam;
+    LinkSenseAIFI::ExecHelper::judger(metalParam.load("D:/guanzhaohang/desktop/InsParamFiles/sourceJson/MetalParamSet.json"));
+    LinkSenseAIFI::DcsParam::DftAndModInit::s_Defects = metalParam.DefectDict();
+    LinkSenseAIFI::DcsParam::DftAndModInit::s_Modules = metalParam.ModuleDict();
+    LinkSenseAIFI::DcsParam::DftAndModInit::s_CustomDftList = metalParam.CustomDftList();
+
 }
 
 MainWindow::~MainWindow()
@@ -34,9 +42,9 @@ LinkSenseAIFI::Status<> MainWindow::uiInit()
         m_ParamWidnowHLayout = new QHBoxLayout();
         m_ButtonHLayout = new QHBoxLayout();
         m_SerializeFilePathEdit = new QLineEdit();
-        m_SerializeFilePathEdit->setText("./");
+        m_SerializeFilePathEdit->setText("D:/guanzhaohang/desktop/InsParamFiles/modifiedJson");
         m_DeserializeFilePathEdit = new QLineEdit();
-        m_DeserializeFilePathEdit->setText("./");
+        m_DeserializeFilePathEdit->setText("D:/guanzhaohang/desktop/InsParamFiles/sourceJson");
         m_VLayout->addLayout(m_ParamWidnowHLayout, 20);
         m_VLayout->addLayout(m_ButtonHLayout, 1);
 
@@ -94,9 +102,12 @@ void MainWindow::bindSignalAndSlots()
             LinkSenseAIFI::ExecHelper::judger(m_ParamWindow->readParamFiles(m_DeserializeFilePathEdit->text(), m_DeserializeFilePathEdit->text(), m_DeserializeFilePathEdit->text()));
             for (const auto &defect : LinkSenseAIFI::DcsParam::DftAndModInit::s_Defects.DefectList()) {
                 m_DefectList->addItem(QString::fromStdString(defect.name));
+                Logur::i().info("m_DefectList :{}", defect.name);
             }
+            Logur::i().info("===================");
             for (const auto &module : LinkSenseAIFI::DcsParam::DftAndModInit::s_Modules.ModuleList()) {
                 m_ModuleList->addItem(QString::fromStdString(module.name));
+                Logur::i().info("m_ModuleList :{}", module.name);
             }
         });
         if (not state.isOK()) {
@@ -129,164 +140,164 @@ void MainWindow::bindSignalAndSlots()
 
 void MainWindow::excel2json()
 {
-    using namespace LinkSenseAIFI::DcsParam;
-    using Logi = LinkSenseAIFI::DcsParam::ParamInterface::ConditionSelecter;
-    ParamSetResist resistParam, resistParamNew;
-    const auto ret = resistParam.load("./ResistParamSet.json");
-    if (!ret.isOK()) {
-        qDebug() << " loas resist param file failed!!!";
-        return;
-    }
-    resistParamNew.setResistParamNameTranslateCN(resistParam.ResistParamNameTranslateCN());
-    resistParamNew.setDefectDict(resistParam.DefectDict());
-    resistParamNew.setModuleDict(resistParam.ModuleDict());
-    DftAndModInit::s_Modules = resistParam.ModuleDict();
-    DftAndModInit::s_Defects = resistParam.DefectDict();
+    //using namespace LinkSenseAIFI::DcsParam;
+    //using Logi = LinkSenseAIFI::DcsParam::ParamInterface::ConditionSelecter;
+    //ParamSetResist resistParam, resistParamNew;
+    //const auto ret = resistParam.load("./ResistParamSet.json");
+    //if (!ret.isOK()) {
+    //    qDebug() << " loas resist param file failed!!!";
+    //    return;
+    //}
+    //resistParamNew.setResistParamNameTranslateCN(resistParam.ResistParamNameTranslateCN());
+    //resistParamNew.setDefectDict(resistParam.DefectDict());
+    //resistParamNew.setModuleDict(resistParam.ModuleDict());
+    //DftAndModInit::s_Modules = resistParam.ModuleDict();
+    //DftAndModInit::s_Defects = resistParam.DefectDict();
 
-    std::unordered_map<QString, UsePostCondition> use_post = {{"Close", UsePostCondition::Close},
-                                                              {"DirectlyFiltration", UsePostCondition::DirectlyFiltration},
-                                                              {"ConditionalFiltering", UsePostCondition::ConditionalFiltering}};
-    std::unordered_map<QString, Logi>logi_list = {{"Area", Logi::Area}, {"WidthAndHeight", Logi::WidthAndHeight}, {"AreaAndWidht", Logi::AreaAndWidht},
-                                                   {"AreaAndHeight", Logi::AreaAndHeight}, {"WidthOrHeight", Logi::WidthOrHeight}, {"AreaOrWidht", Logi::AreaOrWidht},
-                                                   {"AreaOrHeight", Logi::AreaOrHeight}, {"AreaOrWidthAndHeight", Logi::AreaOrWidthAndHeight},
-                                                   {"WidthOrAreaAndHeight", Logi::WidthOrAreaAndHeight}, {"HeightOrWidthAndArea", Logi::HeightOrWidthAndArea},
-                                                   {"AreaAndWidthOrHeight", Logi::AreaAndWidthOrHeight}, {"WidthAndAreaOrHeight", Logi::WidthAndAreaOrHeight},
-                                                   {"HeightAndAreaOrWidth", Logi::HeightAndAreaOrWidth}, {"Or", Logi::Or}, {"And", Logi::And}};
+    //std::unordered_map<QString, UsePostCondition> use_post = {{"Close", UsePostCondition::Close},
+    //                                                          {"DirectlyFiltration", UsePostCondition::DirectlyFiltration},
+    //                                                          {"ConditionalFiltering", UsePostCondition::ConditionalFiltering}};
+    //std::unordered_map<QString, Logi>logi_list = {{"Area", Logi::Area}, {"WidthAndHeight", Logi::WidthAndHeight}, {"AreaAndWidht", Logi::AreaAndWidht},
+    //                                               {"AreaAndHeight", Logi::AreaAndHeight}, {"WidthOrHeight", Logi::WidthOrHeight}, {"AreaOrWidht", Logi::AreaOrWidht},
+    //                                               {"AreaOrHeight", Logi::AreaOrHeight}, {"AreaOrWidthAndHeight", Logi::AreaOrWidthAndHeight},
+    //                                               {"WidthOrAreaAndHeight", Logi::WidthOrAreaAndHeight}, {"HeightOrWidthAndArea", Logi::HeightOrWidthAndArea},
+    //                                               {"AreaAndWidthOrHeight", Logi::AreaAndWidthOrHeight}, {"WidthAndAreaOrHeight", Logi::WidthAndAreaOrHeight},
+    //                                               {"HeightAndAreaOrWidth", Logi::HeightAndAreaOrWidth}, {"Or", Logi::Or}, {"And", Logi::And}};
 
-    auto core = [&] (const QString &excelFilePath, const RegionType &regionType) {
-        using namespace QXlsx;
-        Document xlsxR(excelFilePath);
-        if (not xlsxR.load()) // load excel file
-        {
-            qDebug() << "xlsx load failed!";
-            return;
-        }
-        for (int row = 2; row <= xlsxR.dimension().rowCount(); ++row) {
-            std::string defectCode;
-            ModuleSetKey moduleSet;
-            ParamGlob globParam;
-            DcsnParamsResist param;
-            for (int col = 1; col <= xlsxR.dimension().columnCount(); ++col) {
-                QXlsx::Cell *cell = xlsxR.cellAt(row, col);
-                switch (col) {
-                case 1: /*value: "区域"*/
-                    param.setHierarchyClass(cell->value().toString().toStdString());
-                    break;
-                case 2: /*value: "缺陷名称"*/
-                    defectCode = DftAndModInit::s_Defects.name2Code(cell->value().toString().toStdString());
-                    break;
-                case 3: /*value: "部件组合"*/
-                {
-                    const auto modules = cell->value().toString().split("&");
-                    std::vector<std::string> modulesVec;
-                    for (const auto &str : modules) { modulesVec.push_back(str.toStdString()); };
-                    moduleSet = ModuleSetKey(modulesVec, DftAndModInit::s_Modules, ModuleSetKey::KeyMode::NameCN);
-                    break;
-                }
-                case 4: /*value: "SideDefectAreaLimit"*/
-                    globParam.setSideDefectAreaLimit(cell->value().toUInt());
-                    break;
-                case 5: /*value: "SideDefectCountLimit"*/
-                    globParam.setSideDefectCountLimit(cell->value().toUInt());
-                    break;
-                case 6: /*value: "GlobParam.DistanceWithOtherBlob"*/
-                    globParam.setDistanceWithOtherBlob(cell->value().toUInt());
-                    break;
-                case 7: /*value: "GlobParam.OtherBlobNumberNearbyLimit"*/
-                    globParam.setOtherBlobNumberNearbyLimit(cell->value().toUInt());
-                    break;
-                case 8: /*value: "UsePost"*/
-                    param.setUsePost(use_post.at(cell->value().toString()));
-                    break;
-                case 9: /*value: "InterAreaRatio"*/
-                    param.setInterAreaRatio(cell->value().toFloat());
-                    break;
-                case 10:  /*value: "InterAreaRatioLarge"*/
-                    param.setInterAreaRatioLarge(cell->value().toFloat());
-                    break;
-                case 11:  /*value: "InterWidthRatio"*/
-                    // param.setInterWidthRatio(cell->value().toFloat());
-                    break;
-                case 12:  /*value: "InterHeightRatio"*/
-                    // param.setInterHeightRatio(cell->value().toFloat());
-                    break;
-                case 13:  /*value: "LimitExpandFactorBreakaway"*/
-                    // param.setLimitExpandFactorBreakaway(cell->value().toFloat());
-                    break;
-                case 14:  /*value: "ReceptiveField"*/
-                    param.setReceptiveField(cell->value().toUInt());
-                    break;
-                case 15:  /*value: "DefectDistanceNearbyPad"*/
-                    param.setDefectDistanceNearbyPad(cell->value().toUInt());
-                    break;
-                case 16:  /*value: "DefectDistanceNearbyCircuit"*/
-                    param.setDefectDistanceNearbyCircuit(cell->value().toUInt());
-                    break;
-                case 17:  /*value: "RejectedDefectNames"*/
-                {
-                    auto defectStr = cell->value().toString();
-                    defectStr = defectStr.remove("[");
-                    defectStr = defectStr.remove("]");
-                    defectStr = defectStr.remove("'");
-                    defectStr = defectStr.remove("'");
-                    defectStr = defectStr.remove(" ");
-                    const auto defectList = defectStr.split(",");
-                    if (defectList.size() == 1 and defectList[0].isEmpty()) { break; };
-                    std::vector<std::string> defectCodes, defectNames;
-                    for (const auto &defectName : defectList) {
-                        const auto defectNameStd = defectName.toStdString();
-                        defectNames.push_back(defectNameStd);
-                        defectCodes.push_back(DftAndModInit::s_Defects.name2Code(defectNameStd));
-                    }
-                    param.setRejectedDefectCodes({defectCodes});
-                    // param.setRejectedDefectNames({defectNames});
-                    break;
-                }
-                case 18:  /*value: "RejectedNearByModuleNames"*/
-                {
-                    auto moduleStr = cell->value().toString();
-                    moduleStr = moduleStr.remove("[");
-                    moduleStr = moduleStr.remove("]");
-                    moduleStr = moduleStr.remove("'");
-                    moduleStr = moduleStr.remove("'");
-                    moduleStr = moduleStr.remove(" ");
-                    const auto moduleList = moduleStr.split(",");
-                    if (moduleList.size() == 1 and moduleList[0].isEmpty()) { break; };
-                    std::vector<std::string> moduleNames;
-                    std::vector<uchar> moduleIDs;
-                    for (const auto &moduleName : moduleList) {
-                        const auto moduleNameStd = moduleName.toStdString();
-                        moduleNames.push_back(moduleNameStd);
-                        moduleIDs.push_back(LinkSenseAIFI::ExecHelper::judger(DftAndModInit::s_Modules.name2ID(moduleNameStd)));
-                    }
-                    // param.setRejectedNearByModuleNames({moduleNames});
-                    param.setRejectedNearByModuleIDs({moduleIDs});
-                    break;
-                }
-                break;
-                case 19:  /*value: "FilterCondition"*/
-                    param.setFilterCondition(logi_list.at(cell->value().toString()));
-                    break;
-                case 20:  /*value: "DefectAreaLimit"*/
-                    param.setDefectAreaLimit(cell->value().toUInt());
-                    break;
-                case 21:  /*value: "DefectMinSizeLimit"*/
-                    param.setDefectMinSizeLimit(cell->value().toUInt());
-                    break;
-                case 22:  /*value: "DefectMaxSizeLimit"*/
-                    param.setDefectMaxSizeLimit(cell->value().toUInt());
-                    break;
-                }
-            }
-            param.setGlobParam(globParam);
-            if (!LinkSenseAIFI::ExecHelper::judger(resistParamNew.insert(regionType, QString::fromStdString(defectCode), moduleSet, param))){
-                qDebug() << "defectCode:" << QString::fromStdString(defectCode) << " moduleSet:" << QString::fromStdString(moduleSet.key2ModuleStrs(ModuleSetKey::KeyMode::NameCN)) << " failed!!!";
-            }
-        }
-    };
-    core("./resistParamSet_class.xlsx", RegionType::Piece);
-    core("./resistParamSet_class_breakaway.xlsx", RegionType::BoardEdge);
-    LinkSenseAIFI::ExecHelper::judger(resistParamNew.save("./ResistParamSetNew.json"));
+    //auto core = [&] (const QString &excelFilePath, const RegionType &regionType) {
+    //    using namespace QXlsx;
+    //    Document xlsxR(excelFilePath);
+    //    if (not xlsxR.load()) // load excel file
+    //    {
+    //        qDebug() << "xlsx load failed!";
+    //        return;
+    //    }
+    //    for (int row = 2; row <= xlsxR.dimension().rowCount(); ++row) {
+    //        std::string defectCode;
+    //        ModuleSetKey moduleSet;
+    //        ParamGlob globParam;
+    //        DcsnParamsResist param;
+    //        for (int col = 1; col <= xlsxR.dimension().columnCount(); ++col) {
+    //            QXlsx::Cell *cell = xlsxR.cellAt(row, col);
+    //            switch (col) {
+    //            case 1: /*value: "区域"*/
+    //                param.setHierarchyClass(cell->value().toString().toStdString());
+    //                break;
+    //            case 2: /*value: "缺陷名称"*/
+    //                defectCode = DftAndModInit::s_Defects.name2Code(cell->value().toString().toStdString());
+    //                break;
+    //            case 3: /*value: "部件组合"*/
+    //            {
+    //                const auto modules = cell->value().toString().split("&");
+    //                std::vector<std::string> modulesVec;
+    //                for (const auto &str : modules) { modulesVec.push_back(str.toStdString()); };
+    //                moduleSet = ModuleSetKey(modulesVec, DftAndModInit::s_Modules, ModuleSetKey::KeyMode::NameCN);
+    //                break;
+    //            }
+    //            case 4: /*value: "SideDefectAreaLimit"*/
+    //                globParam.setSideDefectAreaLimit(cell->value().toUInt());
+    //                break;
+    //            case 5: /*value: "SideDefectCountLimit"*/
+    //                globParam.setSideDefectCountLimit(cell->value().toUInt());
+    //                break;
+    //            case 6: /*value: "GlobParam.DistanceWithOtherBlob"*/
+    //                globParam.setDistanceWithOtherBlob(cell->value().toUInt());
+    //                break;
+    //            case 7: /*value: "GlobParam.OtherBlobNumberNearbyLimit"*/
+    //                globParam.setOtherBlobNumberNearbyLimit(cell->value().toUInt());
+    //                break;
+    //            case 8: /*value: "UsePost"*/
+    //                param.setUsePost(use_post.at(cell->value().toString()));
+    //                break;
+    //            case 9: /*value: "InterAreaRatio"*/
+    //                param.setInterAreaRatio(cell->value().toFloat());
+    //                break;
+    //            case 10:  /*value: "InterAreaRatioLarge"*/
+    //                param.setInterAreaRatioLarge(cell->value().toFloat());
+    //                break;
+    //            case 11:  /*value: "InterWidthRatio"*/
+    //                // param.setInterWidthRatio(cell->value().toFloat());
+    //                break;
+    //            case 12:  /*value: "InterHeightRatio"*/
+    //                // param.setInterHeightRatio(cell->value().toFloat());
+    //                break;
+    //            case 13:  /*value: "LimitExpandFactorBreakaway"*/
+    //                // param.setLimitExpandFactorBreakaway(cell->value().toFloat());
+    //                break;
+    //            case 14:  /*value: "ReceptiveField"*/
+    //                param.setReceptiveField(cell->value().toUInt());
+    //                break;
+    //            case 15:  /*value: "DefectDistanceNearbyPad"*/
+    //                param.setDefectDistanceNearbyPad(cell->value().toUInt());
+    //                break;
+    //            case 16:  /*value: "DefectDistanceNearbyCircuit"*/
+    //                param.setDefectDistanceNearbyCircuit(cell->value().toUInt());
+    //                break;
+    //            case 17:  /*value: "RejectedDefectNames"*/
+    //            {
+    //                auto defectStr = cell->value().toString();
+    //                defectStr = defectStr.remove("[");
+    //                defectStr = defectStr.remove("]");
+    //                defectStr = defectStr.remove("'");
+    //                defectStr = defectStr.remove("'");
+    //                defectStr = defectStr.remove(" ");
+    //                const auto defectList = defectStr.split(",");
+    //                if (defectList.size() == 1 and defectList[0].isEmpty()) { break; };
+    //                std::vector<std::string> defectCodes, defectNames;
+    //                for (const auto &defectName : defectList) {
+    //                    const auto defectNameStd = defectName.toStdString();
+    //                    defectNames.push_back(defectNameStd);
+    //                    defectCodes.push_back(DftAndModInit::s_Defects.name2Code(defectNameStd));
+    //                }
+    //                param.setRejectedDefectCodes({defectCodes});
+    //                // param.setRejectedDefectNames({defectNames});
+    //                break;
+    //            }
+    //            case 18:  /*value: "RejectedNearByModuleNames"*/
+    //            {
+    //                auto moduleStr = cell->value().toString();
+    //                moduleStr = moduleStr.remove("[");
+    //                moduleStr = moduleStr.remove("]");
+    //                moduleStr = moduleStr.remove("'");
+    //                moduleStr = moduleStr.remove("'");
+    //                moduleStr = moduleStr.remove(" ");
+    //                const auto moduleList = moduleStr.split(",");
+    //                if (moduleList.size() == 1 and moduleList[0].isEmpty()) { break; };
+    //                std::vector<std::string> moduleNames;
+    //                std::vector<uchar> moduleIDs;
+    //                for (const auto &moduleName : moduleList) {
+    //                    const auto moduleNameStd = moduleName.toStdString();
+    //                    moduleNames.push_back(moduleNameStd);
+    //                    moduleIDs.push_back(LinkSenseAIFI::ExecHelper::judger(DftAndModInit::s_Modules.name2ID(moduleNameStd)));
+    //                }
+    //                // param.setRejectedNearByModuleNames({moduleNames});
+    //                param.setRejectedNearByModuleIDs({moduleIDs});
+    //                break;
+    //            }
+    //            break;
+    //            case 19:  /*value: "FilterCondition"*/
+    //                param.setFilterCondition(logi_list.at(cell->value().toString()));
+    //                break;
+    //            case 20:  /*value: "DefectAreaLimit"*/
+    //                param.setDefectAreaLimit(cell->value().toUInt());
+    //                break;
+    //            case 21:  /*value: "DefectMinSizeLimit"*/
+    //                param.setDefectMinSizeLimit(cell->value().toUInt());
+    //                break;
+    //            case 22:  /*value: "DefectMaxSizeLimit"*/
+    //                param.setDefectMaxSizeLimit(cell->value().toUInt());
+    //                break;
+    //            }
+    //        }
+    //        param.setGlobParam(globParam);
+    //        if (!LinkSenseAIFI::ExecHelper::judger(resistParamNew.insert(regionType, QString::fromStdString(defectCode), moduleSet, param))){
+    //            qDebug() << "defectCode:" << QString::fromStdString(defectCode) << " moduleSet:" << QString::fromStdString(moduleSet.key2ModuleStrs(ModuleSetKey::KeyMode::NameCN)) << " failed!!!";
+    //        }
+    //    }
+    //};
+    //core("./resistParamSet_class.xlsx", RegionType::Piece);
+    //core("./resistParamSet_class_breakaway.xlsx", RegionType::BoardEdge);
+    //LinkSenseAIFI::ExecHelper::judger(resistParamNew.save("./ResistParamSetNew.json"));
 
 }
 

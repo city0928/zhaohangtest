@@ -6,6 +6,8 @@ set(TOOL_VERSION_NUMBER 0.1.0.1)
 set(TOOL_EXE_FILENAME "ParamsetViewer")
 set(CMAKE_PROJECT_NAME ${TOOL_EXE_FILENAME})
 
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+
 Set(Lib3rd)
 Set(REQUIRES_PY)
 file(STRINGS ${CMAKE_CURRENT_LIST_DIR}/../requires.txt REQUIRES)

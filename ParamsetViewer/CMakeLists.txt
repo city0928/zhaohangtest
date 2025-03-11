@@ -1,6 +1,10 @@
-cmake_minimum_required(VERSION 3.16)
+﻿cmake_minimum_required(VERSION 3.16)
 
 project(ParamsetViewer VERSION LANGUAGES CXX)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOMOC ON)
 
 set(TOOL_VERSION_NUMBER 0.1.0.1)
 set(TOOL_EXE_FILENAME "ParamsetViewer")

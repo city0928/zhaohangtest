@@ -1,4 +1,4 @@
-#include "widget.h"
+﻿#include "widget.h"
 #include "TestblobAnalyzer.h"
 
 #include "opencv2/imgproc.hpp"
@@ -11,8 +11,8 @@
 #include "opencv2/imgcodecs.hpp"
 #include "Logger.h"
 
-#define painterpainterpath 0
-#define blobAnalyzer 1
+#define painterpainterpath 1
+#define blobAnalyzer 0
 
 
 int main(int argc, char *argv[])
@@ -20,11 +20,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     LinkSenseAIFI::LogParam libParam{ LinkSenseAIFI::LogMode::Both, "./Log", "LinkSenseIVS", "Running", ".log", 23, 59, 14 };
     libParam.level = LinkSenseAIFI::LogLevel::debug;
-    LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
+    [[maybe_unused]] LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
 
 #if painterpainterpath
     Widget w;
-    w.resize(300, 600);
+    w.resize(600, 400);
     w.show();
 #elif blobAnalyzer
     TestblobAnalyzer obj;

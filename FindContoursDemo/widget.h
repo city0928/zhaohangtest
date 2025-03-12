@@ -1,4 +1,4 @@
-#ifndef WIDGET_H
+﻿#ifndef WIDGET_H
 #define WIDGET_H
 
 #include <QWidget>
@@ -15,9 +15,14 @@ public:
 
     void readMatStdPath(const std::string &strPath);
 
+    void testOutPolygon();
+    void testAddPixelPolygon();
+
   protected:
-    void paintEvent(QPaintEvent *event);
+    void wheelEvent(QWheelEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
     QPainterPath path;
+    QPainterPath path2;
 };
 #endif // WIDGET_H

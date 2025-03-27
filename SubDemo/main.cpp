@@ -8,11 +8,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    LinkSenseAIFI::LogParam libParam{LinkSenseAIFI::LogMode::Both, "./Log", "LinkSenseIVS", "Running", ".log", 23, 59, 14};
-    libParam.level = LinkSenseAIFI::LogLevel::debug;
-    LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
+    LinkSenseAIFI::LogParam libParam{LogMode::Both, "./Logs", "test", "logsName"};
+    libParam.level = LinkSenseAIFI::LogLevel::trace;
+    LinkSenseAIFI::Logur::create(libParam);
 
-    testClass cla;
+    TestTryCatcher cla;
 
     return a.exec();
 }

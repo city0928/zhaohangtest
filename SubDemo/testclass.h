@@ -2,34 +2,25 @@
 #include <QObject>
 #include <QDebug>
 
-class base
-{
-public:
-    explicit base() = default;
-protected:
-    virtual void add(){
-        qDebug() << "base add.";
-    }
-};
+#include <iostream>
 
-class subClass : public base
-{
-public:
-    explicit subClass(){
-        add();
-    }
-protected:
-    /*virtual void add() override{
-        qDebug() << "SubClass add.";
-        base::add();
-    }*/
-};
+#include "TryCatcher.h"
+#include "Logger.h"
 
-class testClass : public QObject
+using namespace LinkSenseAIFI;
+
+class TestTryCatcher
 {
-    Q_OBJECT
   public:
-    explicit testClass(QObject* parent = nullptr) {
-        subClass test; 
+    explicit TestTryCatcher(){
+        const auto& state = TryCatcher::exec(Logur::i().Ptr(), "异常错误！", [&](){
+
+            int* i = nullptr;
+            int* j = new int(10);
+            delete j;
+
+            std::cout << *i << " " << *j << "\n";
+        });
     }
+
 };

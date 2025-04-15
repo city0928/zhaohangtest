@@ -2,12 +2,12 @@
 #include "Logger.h"
 #include <QApplication>
 #include <windows.h>
-#include "ConfigRangeWidget.h"
-#include "CustomBaseType.h"
+//#include "ConfigRangeWidget.h"
+//#include "CustomBaseType.h"
 #include "yas/serialize.hpp"
 #include "yas/std_types.hpp"
 
-#include "TestGadget.h"
+//#include "TestGadget.h"
 
 using namespace LinkSenseAIFI;
 using namespace LinkSenseAIFI::DcsParam;
@@ -52,13 +52,13 @@ int main(int argc, char *argv[])
     QString str("hello word!");
     func(str);
     QApplication a(argc, argv);
-    // MainWindow w;
-    // w.show();
+    MainWindow w;
+    w.show();
     //w.clickUi();
 
-    using ConfigRangeWidget = LinkSenseAIFI::DcsParam::ConfigRangeWidget;
-    ConfigRangeWidget config;
-    config.show();
+    //using ConfigRangeWidget = LinkSenseAIFI::DcsParam::ConfigRangeWidget;
+    //ConfigRangeWidget config;
+    //config.show();
 
     //LinkSenseAIFI::DcsParam::TestYas test1;
     //std::string str333 = "D:/guanzhaohang/desktop/qwe.json";
@@ -71,9 +71,9 @@ int main(int argc, char *argv[])
     // std::vector<cTestBool> vector;
     // index.data().canConvert<cTestBool>();
 
-    FloatSpinBox *spinbox = new FloatSpinBox();
-    spinbox->setParamValue(cfloat{0.1, 0, 10});
-    spinbox->show();
+ /*   FloatSpinBox *spinbox = new FloatSpinBox();
+       spinbox->setParamValue(cfloat{0.1, 0, 10});
+       spinbox->show();*/
 
     return a.exec();
 }

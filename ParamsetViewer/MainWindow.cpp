@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     // excel2json();
     // conver();
     LinkSenseAIFI::DcsParam::ParamSetMetal metalParam;
-    LinkSenseAIFI::ExecHelper::judger(metalParam.load("D:/guanzhaohang/desktop/InsParamFiles/sourceJson/MetalParamSet.json"));
+    //LinkSenseAIFI::ExecHelper::judger(metalParam.load("D:/guanzhaohang/desktop/InsParamFiles/sourceJson/MetalParamSet.json"));
+    LinkSenseAIFI::ExecHelper::judger(metalParam.load("D:/guanzhaohang/desktop/CJ0411/MetalParamSet.json"));
     LinkSenseAIFI::DcsParam::DftAndModInit::s_Defects = metalParam.DefectDict();
     LinkSenseAIFI::DcsParam::DftAndModInit::s_Modules = metalParam.ModuleDict();
     LinkSenseAIFI::DcsParam::DftAndModInit::s_CustomDftList = metalParam.CustomDftList();

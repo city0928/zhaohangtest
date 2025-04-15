@@ -44,7 +44,7 @@ message(STATUS  ${PROJECT_NAME} ": REQUIRES_PY: \n" ${REQUIRES_PY})
 
 # LOCAL LIB
 message("123 CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-set(IMGPROC_DIR "D:/guanzhaohang/desktop/InsPionier/install/LibParam/${CMAKE_BUILD_TYPE}")
+set(IMGPROC_DIR "D:/guanzhaohang/WorkCode/InsPionier/install/LibParam/${CMAKE_BUILD_TYPE}")
 set(IMGPROC_INCLUDE_DIR ${IMGPROC_DIR}/include)
 set(IMGPROC_LIB_DIR ${IMGPROC_DIR}/lib)
 include_directories(${IMGPROC_INCLUDE_DIR})

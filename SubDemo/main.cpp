@@ -4,6 +4,7 @@
 #include "Logger.h"
 
 #include "testclass.h"
+#include "TestComboBoxUi.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +13,10 @@ int main(int argc, char *argv[])
     libParam.level = LinkSenseAIFI::LogLevel::trace;
     LinkSenseAIFI::Logur::create(libParam);
 
-    TestTryCatcher cla;
+    // TestTryCatcher cla;
+
+    TestComboBoxUi ui;
+    ui.show();
 
     return a.exec();
 }

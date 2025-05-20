@@ -1,0 +1,9 @@
+yas/8.3.7@3rdconan2/all
+nameof/0.10.4@3rdconan2/all
+rangev3/0.12.0@3rdconan2/all
+magic_enum/0.9.7@3rdconan2/all
+opencv/4.8.1@3rdconan2/{channel}
+spdlog/1.12.0@3rdconan2/{channel}
+onetbb/2021.11.0@3rdconan2/{channel}
+libutils/3.18.4@lksense2/{channel}
+libvisparam/3.1.2.15@lksense2/{channel}

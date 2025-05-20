@@ -1,0 +1,74 @@
+#set(QRC_FILES ${CMAKE_SOURCE_DIR}/InsParam/src/FilterParams/gui/resource/Resource.qrc)
+#message("qrc file path: " ${QRC_FILES})
+
+#set(Rroject_DIR ${CMAKE_CURRENT_LIST_DIR})
+#set(Rroject_INCLUDE_DIRS ${Rroject_DIR}/)
+
+set(PARAMUI_FILTERPARAMS_DIRECTORYS
+    src/
+)
+
+set(PARAMUI_HIGHRISKPARAMS_DIRECTORYS
+)
+
+set(PARAMUI_FILTERPARAMS_HEADFILES
+
+)
+set(PARAMUI_FILTERPARAMS_CPPFILES
+
+)
+
+
+set(PARAMUI_HIGHRISKPARAMS_HEADFILES
+)
+set(PARAMUI_HIGHRISKPARAMS_CPPFILES
+)
+
+set(PROJUI_INFO
+    version.txt
+    requires.txt
+    src.cmake
+)
+
+set(PARAMUI_EXPROT_FILES
+    src/RecheckuiExporter.h
+)
+
+set(PARAMUI_RESOURCE_FILES
+    resource/Resource.qrc
+)
+
+set(PARAMUI_DIRECTORYS
+    ##############FilterParams#############
+    ${PARAMUI_FILTERPARAMS_DIRECTORYS}
+    ##############HighRiskParams#############
+    ${PARAMUI_HIGHRISKPARAMS_DIRECTORYS}
+)
+include_directories(${PARAMUI_DIRECTORYS})
+
+set(PARAMUI_HEADFILES
+    ${PARAMUI_EXPROT_FILES}
+    ${PARAMUI_FILTERPARAMS_HEADFILES}
+    ${PARAMUI_HIGHRISKPARAMS_HEADFILES}
+)
+set(PARAMUI_CPPFILES
+    ${PARAMUI_FILTERPARAMS_CPPFILES}
+    ${PARAMUI_HIGHRISKPARAMS_CPPFILES}
+)
+
+set(LibCnter
+    ${PROJUI_INFO}
+    ${PARAMUI_HEADFILES}
+    ${PARAMUI_CPPFILES}
+    ${PARAMUI_EXPROT_FILES}
+    ${PARAMUI_RESOURCE_FILES}
+)
+
+if(MSVC)
+    list(APPEND LibCnter
+        ${PARAMUI_CPPFILES}
+        ${PARAMUI_HEADFILES})
+    list(APPEND PUBLIC_HEADERS ${PARAMUI_HEADFILES})
+    list(APPEND INCLUDEPATH ${PARAMUI_DIRECTORYS})
+endif()
+set(TestAddParamUiDir ${PARAMUI_DIRECTORYS})

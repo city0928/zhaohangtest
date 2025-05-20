@@ -1,8 +1,14 @@
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
+# Prerequisites
+*.d
 *~
 *.autosave
+*.slo
+*.lo
+*.lai
+*.la
 *.a
 *.core
 *.moc
@@ -12,6 +18,7 @@
 *.rej
 *.so
 *.so.*
+*.dylib
 *_pch.h.cpp
 *_resource.rc
 *.qm
@@ -35,9 +42,23 @@ Thumbs.db
 /.qmake.cache
 /.qmake.stash
 
+# Fortran module files
+*.mod
+*.smod
+
+# Precompiled Headers
+*.gch
+*.pch
+
 # qtcreator generated files
 *.pro.user*
-CMakeLists.txt.user*
+*.pro.user.*
+*.txt.user*
+*.txt.user.*
+*.qbs.user
+*.qbs.user.*
+*.qmlproject.user
+*.qmlproject.user.*
 
 # xemacs temporary files
 *.flc
@@ -45,7 +66,32 @@ CMakeLists.txt.user*
 # Vim temporary files
 .*.swp
 
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
 # Visual Studio generated files
+.vs/
 *.ib_pdb_index
 *.idb
 *.ilk
@@ -60,9 +106,68 @@ CMakeLists.txt.user*
 *.vcxproj
 *vcxproj.*
 
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+##### MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# IntelliJ
+*.iml
+.idea/*
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+# Android Studio 3 in .gitignore file.
+.idea/caches
+.idea/modules.xml
+# Comment next line if keeping position of elements in Navigation Editor is relevant for you
+.idea/navEditor.xml
+
+##### VisualStudioCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
 # MinGW generated files
 *.Debug
 *.Release
+
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
 
 # Python byte code
 *.pyc
@@ -71,11 +176,30 @@ CMakeLists.txt.user*
 # --------
 *.dll
 *.exe
+*.out
+*.app
 
-*.vs
-*out
-*build
-install
+# CompressedFiles
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+3rdparty*
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+
 out
-.gitignore
-.gitmodules
+CMakeSettings.json
+
+[Bb]uild/
+[Ii]nstall/
+
+# Conan Temp Files
+conan_*
+conan*.*
+toolchain.*
+deactivate_*.*

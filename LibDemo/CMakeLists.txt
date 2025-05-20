@@ -1,9 +1,17 @@
 ﻿cmake_minimum_required(VERSION 3.16)
-project(SubDemo VERSION LANGUAGES CXX)
 
-set(TOOL_VERSION_NUMBER 0.1.0.1)
-set(TOOL_EXE_FILENAME "SubDemo")
-set(CMAKE_PROJECT_NAME ${TOOL_EXE_FILENAME})
+file(STRINGS "version.txt" PROINFO_STR)
+string(REPLACE ":" ";" PROINFO_LST ${PROINFO_STR})
+list(GET PROINFO_LST 0 LIB_NAME)
+list(GET PROINFO_LST 1 LIB_VER)
+message(STATUS ${LIB_NAME} ": Version: " ${LIB_VER})
+
+project(${LIB_NAME} VERSION ${LIB_VER} LANGUAGES CXX)
+
+# set(TOOL_VERSION_NUMBER 0.1.0.1)
+# set(TOOL_EXE_FILENAME "SubDemo")
+# set(CMAKE_PROJECT_NAME ${TOOL_EXE_FILENAME})
+add_compile_definitions(LIB_LIBRARY)
 
 Set(Lib3rd)
 Set(REQUIRES_PY)
@@ -46,9 +54,22 @@ list(APPEND LinkLibs ${LinkLibsQt} ${Lib3rd})
 message(STATUS ${PROJECT_NAME} ": LinkLibs: " ${LinkLibs})
 
 include(${CMAKE_CURRENT_LIST_DIR}/project.cmake)
-add_executable(${PROJECT_NAME}
-    ${Project_SOURCE}
-)
+
+if(MSVC)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Zi")
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /DEBUG")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} /DEBUG")
+    set(LIB_FILENAME "${PROJECT_NAME}.dll")
+    configure_file(
+      ${CMAKE_SOURCE_DIR}/scripts/Resource.rc.in
+      ${CMAKE_SOURCE_DIR}/scripts/Resource.rc
+      @ONLY)
+    list(APPEND LibCnter scripts/Resource.rc scripts/resource.h)
+endif()
+message(STATUS ${PROJECT_NAME} "-LibCnter: " ${LibCnter})
+
+add_library(${PROJECT_NAME} SHARED ${Project_SOURCE})
+add_library("${PROJECT_NAME}::${PROJECT_NAME}" ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE

@@ -11,12 +11,17 @@ list(APPEND REQUIRE_FILES ${REQUIRE_FILE})
 include(${CMAKE_SOURCE_DIR}/cmake/conangen.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/conansup.cmake)
 
-project(Demo VERSION LANGUAGES CXX)
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/install)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install)
+
+project(DemoProject VERSION LANGUAGES CXX)
 
 include(${CMAKE_SOURCE_DIR}/cmake/env.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/qtcomp.cmake)
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/SubDemo)
+add_subdirectory(${CMAKE_SOURCE_DIR}/LibDemo)
 
-file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/install)
-set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install)
+add_subdirectory(${CMAKE_SOURCE_DIR}/TesterDemo)
+
+# file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/install)
+# set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install)

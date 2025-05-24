@@ -1,5 +1,3 @@
-# ExtentionsZhaoHang
-
 ## Getting started
 
 ## ADD NULL PROJECT

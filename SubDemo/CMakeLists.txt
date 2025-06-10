@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16)
 project(SubDemo VERSION LANGUAGES CXX)
 
 set(TOOL_VERSION_NUMBER 0.1.0.1)
@@ -36,11 +36,8 @@ list(JOIN REQUIRES_PY "" REQUIRES_PY)
 message(STATUS  ${PROJECT_NAME} ": REQUIRES_PY: \n" ${REQUIRES_PY})
 
 # LOCAL LIB
-#set(IMGPROC_DIR "D:/guanzhaohang/desktop/LibImgProc/Debug")
-#set(IMGPROC_INCLUDE_DIR ${IMGPROC_DIR}/include)
-#set(IMGPROC_LIB_DIR ${IMGPROC_DIR}/lib)
-#include_directories(${IMGPROC_INCLUDE_DIR})
-#find_library(LO_IMGPROC LibImgProcd REQUIRED PATHS ${IMGPROC_LIB_DIR})
+include(${CMAKE_SOURCE_DIR}/../modulesivs/install/LibIVS/LibIVS.cmake)
+include_directories(${libivs_INCLUDE_DIRS})
 
 list(APPEND LinkLibs ${LinkLibsQt} ${Lib3rd})
 message(STATUS ${PROJECT_NAME} ": LinkLibs: " ${LinkLibs})
@@ -53,6 +50,9 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     ${LinkLibs}
+)
+target_link_libraries(${PROJECT_NAME} PUBLIC
+${libivs_LIBRARIES}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

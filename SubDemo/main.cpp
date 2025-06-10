@@ -2,8 +2,9 @@
 
 #include <QApplication>
 #include "Logger.h"
+#include "windows.h"
 
-#include "testclass.h"
+#include "GraphImgViewer.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +13,11 @@ int main(int argc, char *argv[])
     libParam.level = LinkSenseAIFI::LogLevel::debug;
     LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
 
-    testClass cla;
+    SetConsoleOutputCP(CP_UTF8);
+    QImageReader::setAllocationLimit(1024);
+
+    GraphImgViewer cla;
+    cla.show();
 
     return a.exec();
 }

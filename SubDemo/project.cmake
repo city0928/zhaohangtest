@@ -5,9 +5,11 @@ include_directories(${Rroject_INCLUDE_DIRS})
 
 set(ProJect_Head
     ${Rroject_DIR}/GraphImgViewer.h
+    ${Rroject_DIR}/TextGraphicsView.h
 )
 set(ProJect_Cpp
     ${Rroject_DIR}/GraphImgViewer.cpp
+    ${Rroject_DIR}/TextGraphicsView.cpp
     ${Rroject_DIR}/main.cpp
 )
 # 主模块

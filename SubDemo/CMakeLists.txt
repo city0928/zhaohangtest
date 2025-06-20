@@ -74,3 +74,7 @@ install(TARGETS ${PROJECT_NAME}
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(${PROJECT_NAME}/../)
 endif()
+
+# target_compile_options(${PROJECT_NAME} PRIVATE /bigobj)
+# target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
+target_compile_definitions(${PROJECT_NAME} PRIVATE QT_NO_KEYWORDS)

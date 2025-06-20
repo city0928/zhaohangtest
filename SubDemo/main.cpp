@@ -5,6 +5,7 @@
 #include "windows.h"
 
 #include "GraphImgViewer.h"
+#include "TextGraphicsView.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +17,11 @@ int main(int argc, char *argv[])
     SetConsoleOutputCP(CP_UTF8);
     QImageReader::setAllocationLimit(1024);
 
-    GraphImgViewer cla;
-    cla.show();
+    // GraphImgViewer cla;
+    // cla.show();
+
+    TextGraphicsView textView;
+    textView.show();
 
     return a.exec();
 }

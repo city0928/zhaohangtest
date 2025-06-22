@@ -1,18 +1,22 @@
 //#include "opencv2/imgcodecs.hpp"
 
 #include <QApplication>
-#include "Logger.h"
+// #include "Logger.h"
 
 #include "testclass.h"
+#include "widget.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    LinkSenseAIFI::LogParam libParam{LinkSenseAIFI::LogMode::Both, "./Log", "LinkSenseIVS", "Running", ".log", 23, 59, 14};
-    libParam.level = LinkSenseAIFI::LogLevel::debug;
-    LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
+    // LinkSenseAIFI::LogParam libParam{LinkSenseAIFI::LogMode::Both, "./Log", "LinkSenseIVS", "Running", ".log", 23, 59, 14};
+    // libParam.level = LinkSenseAIFI::LogLevel::debug;
+    // LinkSenseAIFI::Logger& logger = LinkSenseAIFI::Logur::create(libParam);
 
-    testClass cla;
+    // testClass cla;
+
+    Widget widget;
+    widget.show();
 
     return a.exec();
 }

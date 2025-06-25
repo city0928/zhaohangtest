@@ -5,6 +5,7 @@
 
 #include "testclass.h"
 #include "widget.h"
+#include "threeparty/crow_all.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,8 +16,17 @@ int main(int argc, char *argv[])
 
     // testClass cla;
 
-    Widget widget;
-    widget.show();
+    // Widget widget;
+    // widget.show();
+
+    crow::SimpleApp app;
+
+    CROW_ROUTE(app, "/hello")([](){
+        return "Hello, Crow on localhost!";
+    });
+
+    // 只监听本地回环地址127.0.0.1，端口8080
+    app.bindaddr("127.0.0.1").port(8080).multithreaded().run();
 
     return a.exec();
 }

@@ -27,7 +27,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     bool event(QEvent *event) override;
 
-signals:
+Q_SIGNALS:
 
 private:
     QColor m_color1 = QColor(0, 0, 0);

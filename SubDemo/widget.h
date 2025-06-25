@@ -37,7 +37,7 @@ public:
     void process(QImage &image, int alphaMultiplier);
     void processImageTransparency(QImage &image, int alphaMultiplier, int threshold);
 
-private slots:
+private Q_SLOTS:
     void updateCircles();
 
 protected:

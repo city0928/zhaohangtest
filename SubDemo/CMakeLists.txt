@@ -46,9 +46,13 @@ list(APPEND LinkLibs ${LinkLibsQt} ${Lib3rd})
 message(STATUS ${PROJECT_NAME} ": LinkLibs: " ${LinkLibs})
 
 include(${CMAKE_CURRENT_LIST_DIR}/project.cmake)
+
 add_executable(${PROJECT_NAME}
     ${Project_SOURCE}
 )
+
+add_definitions(-DCROW_USE_BOOST)
+target_compile_definitions(${PROJECT_NAME} PRIVATE QT_NO_KEYWORDS)
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
